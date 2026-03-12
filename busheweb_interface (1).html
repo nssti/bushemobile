@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Академия Буше · Мобильная версия</title>
+    <!-- Шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fcf9f5;
+            color: #2e241f;
+            line-height: 1.4;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 0 16px;
+        }
+        
+        :root {
+            --dark: #2e241f;
+            --primary: #b45f2b;
+            --primary-light: #d68a5c;
+            --bg-light: #fcf9f5;
+            --bg-card: #ffffff;
+            --text-dark: #2e241f;
+            --text-muted: #5f4d3d;
+            --border-light: #e9dbd0;
+            --success: #2b8c5e;
+        }
+        
+        /* Мобильная навигация */
+        .navbar {
+            background: var(--dark);
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .nav-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: white;
+            letter-spacing: -0.02em;
+        }
+        
+        .logo span {
+            font-size: 0.7rem;
+            color: #d4c5b8;
+            margin-left: 4px;
+        }
+        
+        /* Мобильное меню (гамбургер) */
+        .menu-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 8px;
+        }
+        
+        .nav-links-mobile {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--dark);
+            flex-direction: column;
+            padding: 16px;
+            gap: 16px;
+            border-top: 1px solid var(--primary);
+        }
+        
+        .nav-links-mobile.show {
+            display: flex;
+        }
+        
+        .nav-links-mobile a {
+            color: #e9dbd0;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .btn-nav {
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 40px;
+            text-decoration: none;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            font-size: 1rem;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--dark);
+            color: var(--dark);
+        }
+        
+        section {
+            padding: 40px 0;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+        
+        .section-sub {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+        
+        /* Мобильные сетки */
+        .grid-2, .grid-3, .grid-4 {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-light);
+        }
+        
+        .badge {
+            background: var(--dark);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            display: inline-block;
+            margin-bottom: 12px;
+            letter-spacing: 0.3px;
+        }
+        
+        /* Hero секция для мобильных */
+        .hero {
+            padding: 20px 0;
+        }
+        
+        .hero-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            line-height: 1.1;
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 20px;
+            margin: 24px 0;
+        }
+        
+        .hero-stats div div:first-child {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        
+        .hero-image {
+            position: relative;
+            margin: 0 -16px;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 0;
+        }
+        
+        .quote-card {
+            position: relative;
+            bottom: -20px;
+            left: 16px;
+            right: 16px;
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--primary);
+            margin-top: -40px;
+            margin-left: 16px;
+            margin-right: 16px;
+        }
+        
+        /* События */
+        .event-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            border-left: 4px solid var(--primary);
+            margin-bottom: 12px;
+        }
+        
+        .event-date {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1rem;
+        }
+        
+        /* Карточки курсов */
+        .course-card {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid var(--border-light);
+        }
+        
+        .price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 12px 0;
+        }
+        
+        .event-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 16px;
+        }
+        
+        /* Треки */
+        .track-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px dashed var(--border-light);
+        }
+        
+        .track-number {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        
+        /* Форма */
+        input, select {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 40px;
+            border: 1px solid var(--border-light);
+            font-size: 1rem;
+            -webkit-appearance: none;
+        }
+        
+        /* Футер */
+        footer {
+            background: var(--dark);
+            color: #d4c5b8;
+            padding: 40px 0 20px;
+            border-top: 4px solid var(--primary);
+        }
+        
+        .footer-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        .footer-logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        
+        .social-links {
+            margin-top: 16px;
+        }
+        
+        .social-links a {
+            color: #d4c5b8;
+            font-size: 1.5rem;
+            margin-right: 20px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid #4a3d33;
+            font-size: 0.85rem;
+        }
+        
+        /* Пуш-уведомление */
+        .push-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 16px;
+            right: 16px;
+            background: white;
+            color: var(--dark);
+            padding: 16px;
+            border-radius: 60px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1000;
+            border-left: 4px solid var(--success);
+            transform: translateY(150%);
+            transition: transform 0.3s ease;
+        }
+        
+        .push-notification.show {
+            transform: translateY(0);
+        }
+        
+        .push-icon {
+            background: var(--success);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .push-content {
+            flex: 1;
+        }
+        
+        .push-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        
+        .push-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        
+        /* Специально для мобильных кнопок */
+        .btn, .btn-nav, .btn-outline {
+            -webkit-tap-highlight-color: rgba(180,95,43,0.3);
+        }
+        
+        /* Убираем горизонтальный скролл */
+        html, body {
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body>
+    <!-- ПУШ-УВЕДОМЛЕНИЕ -->
+    <div id="pushNotification" class="push-notification">
+        <div class="push-icon"><i class="fas fa-check"></i></div>
+        <div class="push-content">
+            <div class="push-title">Заявка отправлена!</div>
+            <div class="push-text">Мы свяжемся с вами в ближайшее время</div>
+        </div>
+    </div>
+
+    <!-- МОБИЛЬНАЯ НАВИГАЦИЯ -->
+    <nav class="navbar">
+        <div class="container nav-flex">
+            <div class="logo">
+                АКАДЕМИЯ БУШЕ <span>личный рост</span>
+            </div>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <div class="nav-links-mobile" id="mobileMenu">
+            <a href="#events">СОБЫТИЯ</a>
+            <a href="#external">ОТКРЫТАЯ</a>
+            <a href="#internal">КАРЬЕРНАЯ</a>
+            <a href="#campus">КАМПУС</a>
+            <a href="#contacts">КОНТАКТЫ</a>
+            <a class="btn-nav scroll-to-contacts" style="text-align: center; margin-top: 8px;">ЗАПИСАТЬСЯ</a>
+        </div>
+    </nav>
+
+    <!-- HERO СЕКЦИЯ (МОБИЛЬНАЯ) -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div>
+                    <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 16px; flex-wrap: wrap;">
+                        <span style="background: var(--primary); color: white; padding: 4px 12px; border-radius: 40px; font-weight: 600; font-size: 0.8rem;">СПБ · 2026</span>
+                        <span style="color: var(--text-muted); font-size: 0.9rem;"><i class="fas fa-check-circle" style="color: var(--primary);"></i> НАБОР ОТКРЫТ</span>
+                    </div>
+                    
+                    <h1>
+                        Твой личный<br>рост начинается<br><span style="color: var(--primary);">здесь</span>
+                    </h1>
+                    
+                    <p style="font-size: 1rem; color: var(--text-muted); margin: 16px 0;">
+                        Академия Буше — система, где каждый видит своё будущее
+                    </p>
+                    
+                    <div class="hero-stats">
+                        <div><div>75+</div><div>точек</div></div>
+                        <div><div>2</div><div>производства</div></div>
+                        <div><div>1860</div><div>сотрудников</div></div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 12px;">
+                        <a class="btn scroll-to-external" style="flex: 2;">Выбрать курс</a>
+                        <a class="btn btn-outline scroll-to-events" style="flex: 1;">События</a>
+                    </div>
+                </div>
+                
+                <div class="hero-image">
+                    <img src="pekar.jpg" alt="Пекарь Буше">
+                    
+                    <div class="quote-card">
+                        <div style="display: flex; gap: 2px; margin-bottom: 8px; color: #ffb800;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p style="font-size: 0.95rem; margin-bottom: 12px;">"Начинал помощником пекаря. Сейчас — старший пекарь и наставник"</p>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white;">АП</div>
+                            <div>
+                                <div style="font-weight: 600; font-size: 0.9rem;">Алексей Петров</div>
+                                <div style="color: var(--primary); font-size: 0.75rem;">Старший пекарь</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- СОБЫТИЯ -->
+    <section id="events" style="background: #f5efe8;">
+        <div class="container">
+            <span class="badge">📅 СОБЫТИЯ</span>
+            <h2 class="section-title">Ближайшие</h2>
+            <p class="section-sub">Открытые мероприятия. Вход свободный.</p>
+            
+            <div style="margin-bottom: 20px;">
+                <div class="event-card">
+                    <div class="event-date">15 апреля · 19:00</div>
+                    <h3 style="margin: 8px 0; font-size: 1.1rem;">Как за 8 часов зерно становится хлебом</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;"><i class="fas fa-map-pin"></i> Производство Буше</p>
+                    <a class="btn scroll-to-contacts" style="margin-top: 12px; padding: 10px;">Записаться</a>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-date">22 апреля · 18:30</div>
+                    <h3 style="margin: 8px 0; font-size: 1.1rem;">Мастер-класс: идеальный бородинский</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;"><i class="fas fa-map-pin"></i> Учебный центр</p>
+                    <a class="btn scroll-to-contacts" style="margin-top: 12px; padding: 10px;">Записаться</a>
+                </div>
+            </div>
+            
+            <div class="card" style="background: linear-gradient(145deg, #fff, #fcf6f0);">
+                <span class="badge" style="background: var(--primary);">🔥 ГОРЯЩЕЕ СОБЫТИЕ</span>
+                <img src="cofee.jpg" alt="Кофейная пенка" class="event-image">
+                <h2 style="font-size: 1.5rem; margin: 0 0 8px;">Тайны кофейной пенки</h2>
+                <p>Мастер-класс по латте-арту</p>
+                <p style="margin: 12px 0;"><strong>11 апреля, 18:00</strong> · Кафе на Невском 45</p>
+                <div style="margin: 16px 0;">
+                    <p><i class="fas fa-check" style="color: var(--primary);"></i> Осталось 8 мест</p>
+                </div>
+                <a class="btn scroll-to-contacts">Записаться бесплатно</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ОТКРЫТАЯ АКАДЕМИЯ -->
+    <section id="external">
+        <div class="container">
+            <span class="badge">🎓 ОТКРЫТАЯ АКАДЕМИЯ</span>
+            <h2 class="section-title">Учись и получай оффер</h2>
+            <p class="section-sub">Бесплатные интенсивы. Выплата до 10 000 ₽</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+                <div class="course-card">
+                    <i class="fas fa-bread-slice" style="font-size: 2rem; color: var(--primary);"></i>
+                    <h3 style="margin: 12px 0;">Пекарское дело</h3>
+                    <p>4 недели, работа на оборудовании</p>
+                    <div class="price">5 000 ₽</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">выплата после экзамена</p>
+                    <div style="margin: 16px 0;">
+                        <p><i class="fas fa-check" style="color: var(--primary);"></i> Помощник пекаря → пекарь</p>
+                    </div>
+                    <a class="btn-outline btn scroll-to-contacts">Стать частью</a>
+                </div>
+                
+                <div class="course-card">
+                    <i class="fas fa-cash-register" style="font-size: 2rem; color: var(--primary);"></i>
+                    <h3 style="margin: 12px 0;">Мастер сервиса</h3>
+                    <p>3 недели: работа с гостями</p>
+                    <div class="price">5 000 ₽</div>
+                    <div style="margin: 16px 0;">
+                        <p><i class="fas fa-check" style="color: var(--primary);"></i> Стажировка в лучших точках</p>
+                    </div>
+                    <a class="btn-outline btn scroll-to-contacts">Стать частью</a>
+                </div>
+                
+                <div class="course-card">
+                    <i class="fas fa-boxes" style="font-size: 2rem; color: var(--primary);"></i>
+                    <h3 style="margin: 12px 0;">Комплектовщик</h3>
+                    <p>2 недели: организация склада</p>
+                    <div class="price">5 000 ₽</div>
+                    <div style="margin: 16px 0;">
+                        <p><i class="fas fa-check" style="color: var(--primary);"></i> Современный склад</p>
+                    </div>
+                    <a class="btn-outline btn scroll-to-contacts">Стать частью</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- КАРЬЕРНАЯ АКАДЕМИЯ -->
+    <section id="internal" class="dark-section" style="background: var(--dark);">
+        <div class="container">
+            <span class="badge" style="background: var(--primary);">📈 КАРЬЕРНАЯ АКАДЕМИЯ</span>
+            <h2 class="section-title" style="color: white;">Карта роста</h2>
+            <p style="color: #d4c5b8; margin-bottom: 24px;">Прозрачные треки: каждый знает, как вырасти</p>
+            
+            <div class="card" style="background: #3d322b; margin-bottom: 16px;">
+                <h3 style="color: white;">Производственный трек</h3>
+                <div style="margin-top: 16px;">
+                    <div class="track-step">
+                        <span class="track-number">1</span>
+                        <span style="color: white;">Помощник пекаря → Пекарь</span>
+                    </div>
+                    <div class="track-step">
+                        <span class="track-number">2</span>
+                        <span style="color: white;">Пекарь → Старший пекарь</span>
+                    </div>
+                    <div class="track-step">
+                        <span class="track-number">3</span>
+                        <span style="color: white;">Мастер смены → Технолог</span>
+                    </div>
+                </div>
+                <a class="btn scroll-to-contacts" style="margin-top: 16px;">Построить путь</a>
+            </div>
+            
+            <div class="card" style="background: #3d322b;">
+                <h3 style="color: white;">Розничный трек</h3>
+                <div style="margin-top: 16px;">
+                    <div class="track-step">
+                        <span class="track-number">1</span>
+                        <span style="color: white;">Продавец → Старший продавец</span>
+                    </div>
+                    <div class="track-step">
+                        <span class="track-number">2</span>
+                        <span style="color: white;">Администратор → Управляющий</span>
+                    </div>
+                </div>
+                <a class="btn scroll-to-contacts" style="margin-top: 16px;">Построить путь</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- КОНТАКТЫ -->
+    <section id="contacts" style="background: #f5efe8;">
+        <div class="container">
+            <span class="badge">✏️ ЗАПИСЬ</span>
+            <h2 class="section-title">Начни свой рост</h2>
+            
+            <div class="card" style="margin-bottom: 20px;">
+                <div style="margin-bottom: 20px;">
+                    <p style="margin: 10px 0;"><i class="fas fa-phone" style="color: var(--primary); width: 24px;"></i> +7 (812) 555-34-45</p>
+                    <p style="margin: 10px 0;"><i class="fas fa-envelope" style="color: var(--primary);"></i> academy@bushe.ru</p>
+                </div>
+                
+                <form id="applicationForm">
+                    <input type="text" placeholder="Имя" style="margin-bottom: 12px;">
+                    <input type="email" placeholder="Email" style="margin-bottom: 12px;">
+                    <select style="margin-bottom: 16px;">
+                        <option>Хочу на лекторий</option>
+                        <option>Интересует курс пекаря</option>
+                    </select>
+                    <button type="submit" class="btn">Отправить заявку</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ФУТЕР -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">АКАДЕМИЯ БУШЕ</div>
+                    <p>Твой личный рост в профессии</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 style="color: white; margin-bottom: 12px;">Разделы</h4>
+                    <p><a href="#events" style="color: #d4c5b8; text-decoration: none; display: block; margin-bottom: 8px;">События</a></p>
+                    <p><a href="#external" style="color: #d4c5b8; text-decoration: none; display: block; margin-bottom: 8px;">Открытая</a></p>
+                    <p><a href="#internal" style="color: #d4c5b8; text-decoration: none; display: block; margin-bottom: 8px;">Карьерная</a></p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© Буше 2026 — Честность как стратегия</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Мобильное меню
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('show');
+            const icon = menuToggle.querySelector('i');
+            if (mobileMenu.classList.contains('show')) {
+                icon.className = 'fas fa-times';
+            } else {
+                icon.className = 'fas fa-bars';
+            }
+        });
+        
+        // Закрыть меню при клике на ссылку
+        document.querySelectorAll('.nav-links-mobile a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('show');
+                menuToggle.querySelector('i').className = 'fas fa-bars';
+            });
+        });
+        
+        // Скролл к разделам
+        document.querySelectorAll('.scroll-to-contacts').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('contacts').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+        
+        document.querySelectorAll('.scroll-to-events').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('events').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+        
+        document.querySelectorAll('.scroll-to-external').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('external').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+        
+        // Плавный скролл для навигации
+        document.querySelectorAll('.nav-links-mobile a[href^="#"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const id = link.getAttribute('href').substring(1);
+                const el = document.getElementById(id);
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+        
+        // Пуш-уведомление
+        const push = document.getElementById('pushNotification');
+        
+        document.getElementById('applicationForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            push.classList.add('show');
+            e.target.reset();
+            setTimeout(() => push.classList.remove('show'), 3000);
+        });
+        
+        // Пуш для кнопок
+        document.querySelectorAll('.btn:not(.scroll-to-contacts):not(.scroll-to-events):not(.scroll-to-external)').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                if (btn.closest('.event-card') || btn.closest('.course-card') || btn.closest('.card')) {
+                    e.preventDefault();
+                    push.classList.add('show');
+                    setTimeout(() => push.classList.remove('show'), 3000);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
